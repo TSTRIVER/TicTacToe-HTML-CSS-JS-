@@ -1,0 +1,365 @@
+............................................................................HTML.........................................................................................
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="tictactoe.css" rel="stylesheet" />
+    <title>TStriver's TicTacToe</title>
+  </head>
+  <body>
+    <nav id="navbar">
+      <ul id="list1">
+        <li><h2>TStriver's TictacToe</h2></li>
+        <li><h2>How to Play ?</h2></li>
+      </ul>
+      <ul id="list2">
+        <li>Reach Us</li>
+        <li>About the Game</li>
+      </ul>
+    </nav>
+    <div id="container">
+        <div id="arena">
+            <div class="griditems" id="grid1"></div>
+            <div class="griditems" id="grid2"></div>
+            <div class="griditems" id="grid3"></div>
+            <div class="griditems" id="grid4"></div>
+            <div class="griditems" id="grid5"></div>
+            <div class="griditems" id="grid6"></div>
+            <div class="griditems" id="grid7"></div>
+            <div class="griditems" id="grid8"></div>
+            <div class="griditems" id="grid9"></div>
+        </div>
+        <button id="play">Play Now</button>
+    </div>
+    <script src="tictactoe.js"></script>
+  </body>
+</html>
+...............................................................................CSS..................................................................................
+#navbar
+{
+ font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+ background-color: #040720;
+ color: grey;
+ display:flex;
+ flex-direction: row;
+ justify-content: space-between;
+}
+#list1, #list2
+{
+ display: flex;
+ flex-direction: row;
+}
+#list1>li,#list2>li{
+    list-style: none;
+    margin-left: 2vw;
+}
+#list2>li{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right : 2vw;
+}
+#container{
+    height: 700px;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/%D0%A1%D0%B2%D0%B5%D1%82_%D0%BE%D1%82_%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BD%D0%B8_-_panoramio.jpg/640px-%D0%A1%D0%B2%D0%B5%D1%82_%D0%BE%D1%82_%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BD%D0%B8_-_panoramio.jpg");
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#arena
+{
+    width: 25vw;
+    height: 40vh;
+    background-color:aquamarine;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+}
+.griditems
+{
+    background-color: silver;
+    opacity : 2;
+    border: 2px inset black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+#play{
+    height: 8vh;
+    width: 8vw;
+    background-color: skyblue;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 15px;
+    margin-top: 1.5em;
+}
+#play:hover{
+    cursor: pointer;
+    background-color: green;
+}
+.griditems h1{
+   font-size: 1.5vw;
+}
+...................................................................JavaScript.........................................................................................
+let play = document.getElementById("play");
+let p1sign, p2sign,pturn=1;
+let winarr=[-1,-1,-1,-1,-1,-1,-1,-1,-1];
+let grid1 = document.getElementById("grid1");
+let grid2 = document.getElementById("grid2");
+let grid3 = document.getElementById("grid3");
+let grid4 = document.getElementById("grid4");
+let grid5 = document.getElementById("grid5");
+let grid6 = document.getElementById("grid6");
+let grid7 = document.getElementById("grid7");
+let grid8 = document.getElementById("grid8");
+let grid9 = document.getElementById("grid9");
+play.addEventListener("click", () => {
+  play.style.backgroundColor = "green";
+  if (window.confirm("Choose X or O")) {
+    alert(`Player 1 Chooses X
+        Player 2 Chooses O`);
+    p1sign = "X";
+    p2sign = "O";
+  } else {
+    alert(`Player 1 Chooses O
+                Player 2 Chooses X`);
+    p1sign = "O";
+    p2sign = "X";
+  }
+});
+//----------------------------------------------------------//
+  grid1.addEventListener("click", (e) => {
+    if(grid1.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid1.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[0]=1;
+      pturn++;
+}
+else {
+    grid1.innerHTML = `<h1>${p2sign}</h1>`;
+    winarr[0]=0;
+    pturn++;
+  }
+}
+winner();
+  });
+  grid2.addEventListener("click", (e) => {
+    if(grid2.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid2.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[1]=1;
+      pturn++;
+    } else {
+      grid2.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[1]=0;
+      pturn++;
+    }
+     }
+     winner();
+  });
+  grid3.addEventListener("click", (e) => {
+    if(grid3.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+    else{
+    if (pturn % 2 != 0) {
+      grid3.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[2]=1;
+      pturn++;
+    } else {
+      grid3.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[2]=0;
+      pturn++;
+    }
+    }
+    winner();
+  });
+  grid4.addEventListener("click", (e) => {
+    if(grid4.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+    else{
+    if (pturn % 2 != 0) {
+      grid4.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[3]=1;
+      pturn++;
+    } else {
+      grid4.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[3]=0;
+      pturn++;
+    }
+}
+winner();
+  });
+  grid5.addEventListener("click", (e) => {
+    if(grid5.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid5.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[4]=1;
+      pturn++;
+    } else {
+      grid5.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[4]=0;
+      pturn++;
+    }
+     }
+     winner();
+  });
+  grid6.addEventListener("click", (e) => {
+    if(grid6.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid6.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[5]=1;
+      pturn++;
+    } else {
+      grid6.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[5]=0;
+      pturn++;
+    }
+}
+winner();
+  });
+  grid7.addEventListener("click", (e) => {
+    if(grid7.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid7.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[6]=1;
+      pturn++;
+    } else {
+      grid7.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[6]=0;
+      pturn++;
+    }
+    }
+    winner();
+  });
+  grid8.addEventListener("click", (e) => {
+    if(grid8.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid8.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[7]=1;
+      pturn++;
+    } else {
+      grid8.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[7]=0;
+      pturn++;
+    }
+   }
+   winner();
+  });
+  grid9.addEventListener("click", (e) => {
+    if(grid9.innerHTML!='')
+        {
+            alert('This Cell is Already Filled');
+        }
+        else{
+    if (pturn % 2 != 0) {
+      grid9.innerHTML = `<h1>${p1sign}</h1>`;
+      winarr[8]=1;
+      pturn++;
+    } else {
+      grid9.innerHTML = `<h1>${p2sign}</h1>`;
+      winarr[8]=0;
+      pturn++;
+    }
+}
+winner();
+  });
+//--------------------WINNING CONDITIONS--------------------//
+function winner()
+{
+  console.log(winarr);
+  if(winarr[0]==1&&winarr[1]==1&&winarr[2]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[0]==0&&winarr[1]==0&&winarr[2]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[3]==1&&winarr[4]==1&&winarr[5]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[3]==0&&winarr[4]==0&&winarr[5]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[6]==1&&winarr[7]==1&&winarr[8]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[6]==0&&winarr[7]==0&&winarr[8]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[0]==1&&winarr[3]==1&&winarr[6]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[0]==0&&winarr[3]==0&&winarr[6]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[1]==1&&winarr[4]==1&&winarr[7]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[1]==0&&winarr[4]==0&&winarr[7]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[2]==1&&winarr[5]==1&&winarr[8]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[2]==0&&winarr[5]==0&&winarr[8]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[0]==1&&winarr[4]==1&&winarr[8]==1)
+  {
+      console.log('Player 1 Wins');
+  }
+  else if(winarr[0]==0&&winarr[4]==0&&winarr[8]==0)
+  {
+    alert('Player 2 Wins');
+  }
+  if(winarr[2]==1&&winarr[4]==1&&winarr[6]==1)
+  {
+      alert('Player 1 Wins');
+  }
+  else if(winarr[2]==0&&winarr[4]==0&&winarr[6]==0)
+  {
+    alert('Player 2 Wins');
+  }
+}
